@@ -4,7 +4,7 @@ namespace Hyperzod\FirstDeliverySdkPhp\Service;
 
 use Hyperzod\FirstDeliverySdkPhp\Enums\HttpMethodEnum;
 
-class JobService extends AbstractService
+class OrderService extends AbstractService
 {
    /**
     * Create a job on FirstDelivery
@@ -16,6 +16,6 @@ class JobService extends AbstractService
     */
    public function create(array $params)
    {
-      return $this->request(HttpMethodEnum::POST, '/jobs', $params);
+      return $this->request(HttpMethodEnum::POST, 'v3/orders', $params);
    }
 }

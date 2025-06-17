@@ -62,9 +62,8 @@ class BaseFirstDeliveryClient implements FirstDeliveryClientInterface
    {
       $client = new Client([
          'headers' => [
-            'accept' => 'application/json',
             'content-type' => 'application/json',
-            'API-KEY' => $this->getApiKey()
+            'Authorization' => 'Bearer ' . $this->getApiKey()
          ]
       ]);
 
@@ -124,16 +123,19 @@ class BaseFirstDeliveryClient implements FirstDeliveryClientInterface
    {
       $status_code = $response->getStatusCode();
 
+      $body = json_decode($response->getBody(), true);
+
       if ($status_code >= 200 && $status_code < 300) {
-         $response = json_decode($response->getBody(), true);
-         if (isset($response["data"])) {
-            return $response["data"];
+         if (isset($body['type']) && $body['type'] === 'success') {
+            return $body;
          }
-         throw new Exception("Data node not set in server response");
+         if (isset($body['errors']) && is_array($body['errors']) && count($body['errors']) > 0) {
+            throw new Exception($body['errors'][0]['message'] ?? 'Unknown error');
+         }
+         throw new Exception("Unknown error or unexpected response structure");
       } else {
-         $response = json_decode($response->getBody(), true);
-         if (isset($response["errors"])) {
-            throw new Exception($response["errors"][0]["message"]);
+         if (isset($body['errors']) && is_array($body['errors']) && count($body['errors']) > 0) {
+            throw new Exception($body['errors'][0]['message'] ?? 'Unknown error');
          }
          throw new Exception("Errors node not set in server response");
       }
