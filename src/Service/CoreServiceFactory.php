@@ -1,0 +1,22 @@
+<?php
+
+namespace Hyperzod\FirstDeliverySdkPhp\Service;
+
+/**
+ * Service factory class for API resources in the root namespace.
+ * @property JobService $jobService
+ */
+class CoreServiceFactory extends AbstractServiceFactory
+{
+    /**
+     * @var array<string, string>
+     */
+    private static $classMap = [
+        'job' => JobService::class,
+    ];
+
+    protected function getServiceClass($name)
+    {
+        return \array_key_exists($name, self::$classMap) ? self::$classMap[$name] : null;
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "hyperzod/first-delivery-sdk-php",
+  "description": "A PHP SDK to integrate FirstDelivery with your application.",
+  "keywords": [
+    "hyperzod",
+    "first-delivery-sdk-php"
+  ],
+  "homepage": "https://github.com/hyperzod/first-delivery-sdk-php",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Azam Siddiqui",
+      "email": "siddiquiazam966@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.4|^8.0",
+    "guzzlehttp/guzzle": "^7.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Hyperzod\\FirstDeliverySdkPhp\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Hyperzod\\FirstDeliverySdkPhp\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
